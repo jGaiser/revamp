@@ -1,0 +1,96 @@
+
+
+.exitButton span:hover {
+    background: white;
+    color: black;
+    padding: 3px 10px;
+    position: relative;
+    right: 20px;
+    cursor: pointer;
+}
+
+.exitButton span {
+    background: black;
+    color: white;
+    padding: 3px 10px;
+    position: relative;
+    right: 20px;
+}
+
+.familyContainer {
+    height: 200px;
+    overflow: scroll;
+    width: 44%;
+    margin-right: 2%;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 5px -2px inset;
+    background: white;
+    float: left;
+}
+
+.familyContainer ul {
+    list-style: none;
+    padding-left: 0px;
+    margin-top: 0px;
+}
+
+.familyContainer ul li {
+    padding: 5px;
+    border: 1px solid gray;
+    border-top: none;
+    text-transform: capitalize;
+}
+
+.familyContainer ul li:hover {
+    cursor: pointer;
+    background: gray;
+}
+
+.familyContainer ul li.selected {
+    color: lightgray;
+}
+
+.familyContainer ul li.selected:hover {
+    background: white;
+    cursor: default;
+}
+
+.geneInputContainer{
+  position: relative;
+}
+
+.geneInputContainer input[type=text] {
+    width: 90%;
+    height: 35px;
+    margin-bottom: 10px;
+}
+
+.geneSuggestionBox {
+    position: absolute;
+    width: 90%;
+    background: white;
+    top: 45px;
+    max-height: 300px;
+    border: 1px solid black;
+    overflow: scroll;
+}
+
+.geneSuggestionList {
+    list-style: none;
+    padding-left: 0px;
+    margin-top: 0px;
+}
+
+.geneSuggestionList li {
+    padding: 5px;
+    padding-left: 20px;
+}
+
+.geneSuggestionList li:hover {
+    cursor: pointer;
+}
+
+.geneSuggestionList li.selected {
+    color: white;
+    background: gray;
+}

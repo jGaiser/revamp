@@ -1,0 +1,10 @@
+.cyButton{
+    text-align: center;
+    text-align: center;
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
+.cyButton:hover{
+	cursor: pointer;
+}
