@@ -1,5 +1,5 @@
 {
-  "name": "fullstack-template",
+  "name": "CyBrowser",
   "version": "1.0.0",
   "description": "Fullstack Template",
   "main": "index.js",
@@ -7,7 +7,8 @@
     "build": "webpack -p --progress --config webpack.config.js",
     "dev-build": "webpack --progress -d --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --progress -d --config webpack.config.js --watch"
+    "watch": "webpack --progress -d --config webpack.config.js --watch",
+    "demo": "echo 'GOOD TIMES!'"
   },
   "keywords": [
     "fullstack",
@@ -21,7 +22,7 @@
     "type": "git",
     "url": "https://github.com/angineering/FullStackTemplate.git"
   },
-  "author": "Angela Branaes",
+  "author": "Jeremiah Gaiser",
   "license": "MIT",
   "babel": {
     "presets": [

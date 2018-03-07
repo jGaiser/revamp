@@ -1,4 +1,5 @@
 import React from 'react';
+import CytoscapeView from './CytoscapeView'
 
 function HelpButton(props) {
 	return <div id='HelpButton'>Help Button</div>
@@ -16,7 +17,7 @@ class Viewport extends React.Component {
   render(){
     return(
       <div id='Viewport'>
-      	<canvas id='cyView'>Canvas</canvas>
+      	<CytoscapeView />
       	<ZoomControlPanel />
       	<HelpButton />
       </div>
@@ -24,4 +25,4 @@ class Viewport extends React.Component {
   }
 }
 
-export default Viewport; 
+export default Viewport;

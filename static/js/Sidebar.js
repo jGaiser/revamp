@@ -1,5 +1,6 @@
 import React from 'react';
 import CyButton from './CyButton';
+import ControlPanel from './ControlPanel'
 
 class Sidebar extends React.Component {
   render(){
@@ -8,6 +9,8 @@ class Sidebar extends React.Component {
       	<CyButton onClick={() => this.props.togglePanel(true)} >
       		Generate New Network
       	</CyButton>
+
+        <ControlPanel/>
       </div>
     )
   }
