@@ -11,6 +11,7 @@ import Sidebar              from './Sidebar';
 import Viewport             from './Viewport';
 import CytoscapeView        from './CytoscapeView';
 import GenerateNetworkPanel from './GenerateNetworkPanel';
+import Network from './Network';
 
 class App extends Component {
 
@@ -23,8 +24,9 @@ class App extends Component {
       showGenerateNetworkPanel: true,
       selectedFamilies: [],
       selectedGenes: [],
+      networkData: [],
     }
-
+    
     this.updateDimensions = this.updateDimensions.bind(this);
     this.toggleGenerateNetworkPanel = this.toggleGenerateNetworkPanel.bind(this);
     this.updateSelectedFamilies = this.updateSelectedFamilies.bind(this);
@@ -71,6 +73,8 @@ class App extends Component {
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);
+    
+    // PROMISE something something.
   }
 
   render() {
