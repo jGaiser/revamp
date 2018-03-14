@@ -11,7 +11,7 @@ import Sidebar              from './Sidebar';
 import Viewport             from './Viewport';
 import CytoscapeView        from './CytoscapeView';
 import GenerateNetworkPanel from './GenerateNetworkPanel';
-import Network from './Network';
+import Server from './Server';
 
 class App extends Component {
 
@@ -37,7 +37,7 @@ class App extends Component {
   }
   
   updateNetworkData(templateID){
-    Network.getNetworkData(templateID, (response) => {
+    Server.getNetworkData(templateID, (response) => {
       const newIndex    = this.state.stateIndex + 1;
       const networkData = this.state.networkData.slice(0, newIndex);
       
@@ -48,6 +48,10 @@ class App extends Component {
         stateIndex: newIndex
       })
     })
+  }
+  
+  currentNetwork(){
+    return this.state.networkData[this.state.stateIndex];
   }
 
   updateDimensions() {
@@ -90,10 +94,8 @@ class App extends Component {
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);
-    
-    // PROMISE something something.
   }
-
+  
   render() {
     const appStyle = {
       width: this.state.width,
