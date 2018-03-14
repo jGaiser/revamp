@@ -94,3 +94,13 @@
     color: white;
     background: gray;
 }
+
+#GenerateNetworkPanel .leftPanel {
+  float: left;
+  width: 70%
+}
+
+#GenerateNetworkPanel .rightPanel {
+  float: right;
+  width: 30%
+}

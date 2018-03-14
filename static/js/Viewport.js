@@ -17,7 +17,7 @@ class Viewport extends React.Component {
   render(){
     return(
       <div id='Viewport'>
-      	<CytoscapeView />
+      	<CytoscapeView {...this.props} />
       	<ZoomControlPanel />
       	<HelpButton />
       </div>

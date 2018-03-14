@@ -2,6 +2,10 @@
   clear: both;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 #CyBrowserApp{
   width: 100%;
   display: block;

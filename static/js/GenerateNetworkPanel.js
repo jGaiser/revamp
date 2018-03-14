@@ -149,10 +149,6 @@ class IndividualSelect extends React.Component {
         this.updateSelectedGeneSuggestion = this.updateSelectedGeneSuggestion.bind(this);
     }
 
-    componentDidMount() {
-        console.log()
-    }
-
     handleChange(event) {
         this.setState({
             geneSearchText: event.target.value,
@@ -166,8 +162,6 @@ class IndividualSelect extends React.Component {
             textInput.search(lastWordRegex),
             textInput.length
         );
-
-        console.log(searchGene);
 
         if(searchGene.length < 1) {
             var suggestions = [];
@@ -288,10 +282,20 @@ class GenerateNetworkPanel extends React.Component {
                 ref={(panel) => {this.panel = panel; }}
                 style={elemStyle}
             >
-                <ExitButton onClick={this.props.togglePanel} />
+              <ExitButton onClick={this.props.togglePanel} />
+              
+              <div className='leftPanel'>
                 <GeneFamilySelect {...this.props} />
                 <div className='clear'></div>
                 <IndividualSelect allGenes={this.props.allGenes}/>
+              </div>
+              
+              <div className='rightPanel'>
+                <button onClick={()=>{
+                  this.props.updateNetworkData(BROMO_TEMPLATE_ID);
+                  this.props.togglePanel();
+                }}>Generate Bromo Network</button>
+              </div>
             </div>
         );
     }

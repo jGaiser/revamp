@@ -17,6 +17,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    
     this.state = {
       width: 0,
       height: 0,
@@ -25,12 +26,28 @@ class App extends Component {
       selectedFamilies: [],
       selectedGenes: [],
       networkData: [],
+      stateIndex: -1,
     }
     
     this.updateDimensions = this.updateDimensions.bind(this);
     this.toggleGenerateNetworkPanel = this.toggleGenerateNetworkPanel.bind(this);
     this.updateSelectedFamilies = this.updateSelectedFamilies.bind(this);
     this.updateSelectedGenes = this.updateSelectedGenes.bind(this);
+    this.updateNetworkData = this.updateNetworkData.bind(this);
+  }
+  
+  updateNetworkData(templateID){
+    Network.getNetworkData(templateID, (response) => {
+      const newIndex    = this.state.stateIndex + 1;
+      const networkData = this.state.networkData.slice(0, newIndex);
+      
+      networkData[newIndex] = response;
+      
+      this.setState({
+        networkData: networkData,
+        stateIndex: newIndex
+      })
+    })
   }
 
   updateDimensions() {
@@ -91,16 +108,22 @@ class App extends Component {
       selectedFamilies: this.state.selectedFamilies,
       updateSelectedFamilies: this.updateSelectedFamilies,
       updateSelectedGenes: this.updateSelectedGenes,
+      updateNetworkData: this.updateNetworkData
     }
 
     const sidebarProps = {
       togglePanel: this.toggleGenerateNetworkPanel,
     }
-
+    
+    const viewportProps = {
+      networkData: this.state.networkData,
+      stateIndex: this.state.stateIndex
+    }
+    
     return (
       <div id="CyBrowserApp" style={appStyle} >
         <Sidebar {...sidebarProps} />
-        <Viewport />
+        <Viewport {...viewportProps} />
         <GenerateNetworkPanel {...generateNetworkPanelProps}/>
         <InfoBox show={this.state.showInfoBox} />
       </div>

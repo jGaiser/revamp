@@ -1,20 +1,16 @@
 import axios from 'axios';
 
 class Network {
-  constructor(){
-    this.sayIt = "Spray it!"
-  }
 
-  static getNetworkData() {
-    axios.get("http://localhost:1234/v1/networks/" + bromoTemplateID)
+  static getNetworkData(networkID, callBack) {
+    axios.get("http://localhost:1234/v1/networks/" + networkID)
       .then(function(response){
-        return response;
+        return callBack(response);
       })
       .catch(function(error){
         console.log(error);
       })
   }
-
 }
 
 export default Network;
