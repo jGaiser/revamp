@@ -34,6 +34,21 @@ class App extends Component {
     this.updateSelectedFamilies = this.updateSelectedFamilies.bind(this);
     this.updateSelectedGenes = this.updateSelectedGenes.bind(this);
     this.updateNetworkData = this.updateNetworkData.bind(this);
+    this.updateLayout = this.updateLayout.bind(this);
+  }
+  
+  updateLayout(newLayout) {
+    const updateNetworkData = this.updateNetworkData;
+
+    Server.buildNetwork(this.currentNetwork(), function(response){
+      const newNetworkID = response.data.networkSUID
+      Server.updateNetworkLayout(newNetworkID, newLayout, function(response){
+        updateNetworkData(newNetworkID); 
+        Server.deleteNetwork(newNetworkID, function(response){
+          console.log("ALL DONE!", response);
+        });
+      });
+    })
   }
   
   updateNetworkData(templateID){
@@ -114,6 +129,7 @@ class App extends Component {
     }
 
     const sidebarProps = {
+      updateLayout: this.updateLayout,
       togglePanel: this.toggleGenerateNetworkPanel,
     }
     

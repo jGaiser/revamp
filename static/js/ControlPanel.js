@@ -1,7 +1,20 @@
 import React from 'react';
 
 const dataFilters = ['Crizantonib', 'Iressa', 'Gleevec', 'Geldanamycin', 'Lung Cancer Cells vs Normal Tissue'];
-const layouts = ["Genemania Force Directed", "Attribute Circle", "Stacked Node-Layout", "Degree Circle", "Circular", "Attributes Layout", "Kamada Kawai", "Force Directed", "Cose", "Grid", "Hierarchical", "Fruchterman Rheingold", "Isom"]
+const layouts = {"genemania-force-directed": "Genemania Force Directed", 
+                 "attribute-circle": "Attribute Circle", 
+                 "stacked-node-layout": "Stacked Node-Layout",
+                 "degree-circle": "Degree Circle", 
+                 "circular": "Circular", 
+                 "attributes-layout": "Attributes Layout", 
+                 "kamada-kawai": "Kamada Kawai", 
+                 "force-directed": "Force Directed", 
+                 "cose": "Cose", 
+                 "grid": "Grid", 
+                 "hierarchical": "Hierarchical", 
+                 "fruchterman-rheingold": "Fruchterman Rheingold", 
+                 "isom": "Isom"}
+
 
 class ControlPanelSection extends React.Component {
   constructor(props){
@@ -31,7 +44,22 @@ class SimpleListSection extends React.Component {
   render() {
     if(this.props.show == false) return null;
     var items = this.props.items.map((item) => {
-      return <div key={item} className='controlBox'>{item}</div>
+      return <div key={item} className='controlBox' onClick={this.props.clickHandler} >{item}</div>
+    })
+
+    return(
+      <div>
+        {items}
+      </div>
+    )
+  }
+}
+
+class LayoutListSection extends React.Component {
+  render() {
+    if(this.props.show == false) return null;
+    var items = this.props.items.map((item) => {
+      return <div key={item} className='controlBox' onClick={() => this.props.clickHandler(item)} >{layouts[item]}</div>
     })
 
     return(
@@ -58,6 +86,7 @@ class EdgeListSection extends React.Component {
 
 class ControlPanel extends React.Component {
   render() {
+    
     return(
       <div className='controlPanelContainer'>
       <ControlPanelSection sectionName="Node List">
@@ -69,7 +98,7 @@ class ControlPanel extends React.Component {
       </ControlPanelSection>
       
         <ControlPanelSection sectionName="Network Layouts">
-          <SimpleListSection items={layouts}/>
+          <LayoutListSection items={Object.keys(layouts)} clickHandler={this.props.updateLayout}/>
         </ControlPanelSection>
         
         <ControlPanelSection sectionName="Data Filters">

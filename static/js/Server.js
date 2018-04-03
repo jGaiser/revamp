@@ -3,7 +3,7 @@ import axios from 'axios';
 class Server {
 
   static getNetworkData(networkID, callback) {
-    // Have to retrieve view ID first. Ugly.
+    // Have to retrieve view ID get network data proper. (Ugly)
     axios.get("http://localhost:1234/v1/networks/" + networkID + "/views")
       .then(function(response){
         axios.get("http://localhost:1234/v1/networks/" + networkID + "/views/" + response.data[0])
@@ -13,6 +13,16 @@ class Server {
           .catch(function(error){
             console.log(error);
           })
+      })
+      .catch(function(error){
+        console.log(error);
+      })
+  }
+
+  static deleteNetwork(networkID, callback) {
+    axios.delete("http://localhost:1234/v1/networks/" + networkID)
+      .then(function(response){
+        console.log(error);
       })
       .catch(function(error){
         console.log(error);
@@ -30,7 +40,7 @@ class Server {
   }
 
   static updateNetworkLayout(networkID, layout, callback) {
-    axios.post("http://localhost:1234/v1/apply/layouts/" + layout + "/" + networkID)
+    axios.get("http://localhost:1234/v1/apply/layouts/" + layout + "/" + networkID)
       .then(function(response){
         callback(response)
       })
