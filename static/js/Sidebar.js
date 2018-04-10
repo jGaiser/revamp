@@ -10,7 +10,7 @@ class Sidebar extends React.Component {
       		Generate New Network
       	</CyButton>
 
-        <ControlPanel updateLayout={this.props.updateLayout} />
+        <ControlPanel {...this.props} />
       </div>
     )
   }

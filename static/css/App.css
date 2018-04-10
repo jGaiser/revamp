@@ -16,6 +16,7 @@ button:hover {
   width: 20%;
   background: #999;
   height: 100%;
+  overflow: scroll;
 }
 
 #Viewport{

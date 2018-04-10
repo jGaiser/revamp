@@ -71,9 +71,65 @@ class LayoutListSection extends React.Component {
 }
 
 class NodeListSection extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: ""
+    }
+  }
+
   render(){
     if(this.props.show == false) return null;
-    return <div>"No nodes here!"</div>
+    if(this.props.networkData == null) return <div>"No nodes here!"</div>
+    const nodes = this.props.networkData[this.props.stateIndex].data.elements.nodes;
+    
+    var items = nodes.map((item) => {
+      return <div key={item.data.id} className='controlBox'>{item.data.name}</div>
+    })
+
+    return (
+      <div>
+        <div className="nodeSearchBox">
+          <i className="fa fa-search" aria-hidden="true"></i>
+          <input type="text" 
+                 placeholder="Search Proteins" 
+                 className="nodeSearchInput" 
+                 value={ this.state.searchText } 
+                 onChange={ (event) => { 
+                    this.setState({searchText: event.value})
+                 }}
+          >
+          </input>
+
+          <div className="searchOptions">
+            <label>Search by:</label>
+            <br></br>
+            <select name="searchBy">
+              <option value="label">Name</option>
+              <option value="Domains">Domain</option>
+              <option value="nodeType">Node Type</option>
+              <option value="Compartment">Compartment</option>
+            </select>
+          </div>
+
+          <div className="searchOptions">
+            <label>Sort by:</label>
+            <br></br>
+            <select name="sortBy">
+              <option value="Domains">Domain</option>
+              <option value="nodeType">Node Type</option>
+              <option value="Compartment">Compartment</option>
+            </select>
+          </div>
+
+          <div className="noResults">No proteins match your input.</div>
+        </div>
+
+        <div>
+          {items}
+        </div>
+      </div>
+    )
   }
 }
 
@@ -90,7 +146,7 @@ class ControlPanel extends React.Component {
     return(
       <div className='controlPanelContainer'>
       <ControlPanelSection sectionName="Node List">
-        <NodeListSection />
+        <NodeListSection {...this.props}/>
       </ControlPanelSection>
       
       <ControlPanelSection sectionName="Edge Properties">

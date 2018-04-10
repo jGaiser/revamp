@@ -38,14 +38,11 @@ class App extends Component {
   }
   
   updateLayout(newLayout) {
-    const updateNetworkData = this.updateNetworkData;
-
-    Server.buildNetwork(this.currentNetwork(), function(response){
+    Server.buildNetwork(this.currentNetwork(), (response) => {
       const newNetworkID = response.data.networkSUID
-      Server.updateNetworkLayout(newNetworkID, newLayout, function(response){
-        updateNetworkData(newNetworkID); 
-        Server.deleteNetwork(newNetworkID, function(response){
-          console.log("ALL DONE!", response);
+      Server.updateNetworkLayout(newNetworkID, newLayout, (response) => {
+        this.updateNetworkData(newNetworkID); 
+        Server.deleteNetwork(newNetworkID, (response) => {
         });
       });
     })
@@ -53,6 +50,7 @@ class App extends Component {
   
   updateNetworkData(templateID){
     Server.getNetworkData(templateID, (response) => {
+      console.log(response);
       const newIndex    = this.state.stateIndex + 1;
       const networkData = this.state.networkData.slice(0, newIndex);
       
@@ -131,6 +129,8 @@ class App extends Component {
     const sidebarProps = {
       updateLayout: this.updateLayout,
       togglePanel: this.toggleGenerateNetworkPanel,
+      networkData: this.state.networkData,
+      stateIndex: this.state.stateIndex,
     }
     
     const viewportProps = {
