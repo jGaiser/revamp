@@ -21,6 +21,7 @@ class ControlPanelSection extends React.Component {
     super(props);
     this.state = {show: false}
   }
+
   render() {
     const childComponents = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {show: this.state.show});
@@ -74,18 +75,43 @@ class NodeListSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: ""
+      searchText: "",
+      // searchBy: "Domains",
+      // sortBy: "Domains"
     }
   }
 
+  componentDidUpdate() {
+    console.log(this.state);
+  }
+
+
+
   render(){
     if(this.props.show == false) return null;
-    if(this.props.networkData == null) return <div>"No nodes here!"</div>
-    const nodes = this.props.networkData[this.props.stateIndex].data.elements.nodes;
-    
+    if(this.props.stateIndex == -1) return <div>"No nodes here!"</div>
+
+    var nodes = this.props.networkData[this.props.stateIndex].data.elements.nodes;
+
+    nodes = nodes.filter((item) => {
+      if(this.state.searchText != "") {
+        let name = item.data.name.toLowerCase(); 
+        let searchText = this.state.searchText.toLowerCase();
+
+        if(name.slice(0, searchText.length) != searchText) return false;
+        return true;
+      }
+
+      return true;
+    })
+      
     var items = nodes.map((item) => {
       return <div key={item.data.id} className='controlBox'>{item.data.name}</div>
     })
+
+    if(items.length == 0){
+      items = [<div key='noResults'>No proteins matched search input.</div>];
+    }
 
     return (
       <div>
@@ -96,33 +122,10 @@ class NodeListSection extends React.Component {
                  className="nodeSearchInput" 
                  value={ this.state.searchText } 
                  onChange={ (event) => { 
-                    this.setState({searchText: event.value})
+                   this.setState({searchText: event.target.value})
                  }}
           >
           </input>
-
-          <div className="searchOptions">
-            <label>Search by:</label>
-            <br></br>
-            <select name="searchBy">
-              <option value="label">Name</option>
-              <option value="Domains">Domain</option>
-              <option value="nodeType">Node Type</option>
-              <option value="Compartment">Compartment</option>
-            </select>
-          </div>
-
-          <div className="searchOptions">
-            <label>Sort by:</label>
-            <br></br>
-            <select name="sortBy">
-              <option value="Domains">Domain</option>
-              <option value="nodeType">Node Type</option>
-              <option value="Compartment">Compartment</option>
-            </select>
-          </div>
-
-          <div className="noResults">No proteins match your input.</div>
         </div>
 
         <div>
