@@ -15,7 +15,6 @@ const layouts = {"genemania-force-directed": "Genemania Force Directed",
                  "fruchterman-rheingold": "Fruchterman Rheingold", 
                  "isom": "Isom"}
 
-
 class ControlPanelSection extends React.Component {
   constructor(props){
     super(props);
@@ -44,6 +43,7 @@ class ControlPanelSection extends React.Component {
 class SimpleListSection extends React.Component {
   render() {
     if(this.props.show == false) return null;
+    
     var items = this.props.items.map((item) => {
       return <div key={item} className='controlBox' onClick={this.props.clickHandler} >{item}</div>
     })
@@ -75,17 +75,9 @@ class NodeListSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: "",
-      // searchBy: "Domains",
-      // sortBy: "Domains"
+      searchText: ""
     }
   }
-
-  componentDidUpdate() {
-    console.log(this.state);
-  }
-
-
 
   render(){
     if(this.props.show == false) return null;
@@ -115,7 +107,7 @@ class NodeListSection extends React.Component {
 
     return (
       <div>
-        <div className="nodeSearchBox">
+        <div className="controlBox nodeSearchBox">
           <i className="fa fa-search" aria-hidden="true"></i>
           <input type="text" 
                  placeholder="Search Proteins" 
@@ -139,7 +131,22 @@ class NodeListSection extends React.Component {
 class EdgeListSection extends React.Component {
   render(){
     if(this.props.show == false) return null;
-    return <div>"No edges just yet."</div>
+    var i = 0;
+
+    var items = this.props.networkStyles.map((item) => {
+      if (item.css.hasOwnProperty('line-color') && item.selector.indexOf("edge[edgeType") > -1) {
+        var edgeType = item.selector.split("'")[1]
+        console.log(item);
+        return(
+          <div key={i++} className='controlBox'>
+            {edgeType}
+            <div className='edgeColorBox' style={{background: item.css['line-color']}}></div>
+          </div>
+        )
+      }
+    })
+
+    return <div>{items}</div>
   }
 }
 
@@ -153,7 +160,7 @@ class ControlPanel extends React.Component {
       </ControlPanelSection>
       
       <ControlPanelSection sectionName="Edge Properties">
-        <EdgeListSection />
+        <EdgeListSection networkStyles={this.props.networkStyles} />
       </ControlPanelSection>
       
         <ControlPanelSection sectionName="Network Layouts">

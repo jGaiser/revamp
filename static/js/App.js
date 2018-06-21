@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GeneData from './geneData.js';
+import NetworkStyles from './networkStyles.js';
 import '../css/App.css';
 import '../css/Viewport.css';
 import '../css/GenerateNetworkPanel.css';
@@ -27,6 +28,9 @@ class App extends Component {
       selectedGenes: [],
       networkData: [],
       stateIndex: -1,
+      selectedNodes: {},
+      infoBoxData: {},
+      networkStyles: []
     }
     
     this.updateDimensions = this.updateDimensions.bind(this);
@@ -35,6 +39,25 @@ class App extends Component {
     this.updateSelectedGenes = this.updateSelectedGenes.bind(this);
     this.updateNetworkData = this.updateNetworkData.bind(this);
     this.updateLayout = this.updateLayout.bind(this);
+    this.setSelectedNodes = this.setSelectedNodes.bind(this);
+    this.setInfoBoxData = this.setInfoBoxData.bind(this);
+    this.setNetworkStyles = this.setNetworkStyles.bind(this);
+  }
+
+  setInfoBoxData(data) {
+    this.setState({infoBoxData: data})
+  }
+
+  setSelectedNodes(nodes) {
+    this.setState({selectedNodes: nodes})
+  }
+
+  setNetworkStyles() {
+    var self = this;
+
+    Server.getStyleData((response) => {
+      self.setState({networkStyles: response.data[0].style})
+    })
   }
   
   updateLayout(newLayout) {
@@ -50,7 +73,6 @@ class App extends Component {
   
   updateNetworkData(templateID){
     Server.getNetworkData(templateID, (response) => {
-      console.log(response);
       const newIndex    = this.state.stateIndex + 1;
       const networkData = this.state.networkData.slice(0, newIndex);
       
@@ -90,8 +112,7 @@ class App extends Component {
     let selectedGenes = this.state.selectedGenes.slice();
 
     if (add) {
-      selectedGenes.push(gene);
-    } else {
+      selectedGenes.push(gene); } else {
       selectedGenes.splice(selectedGenes.indexOf(gene), 1);
     }
 
@@ -107,6 +128,8 @@ class App extends Component {
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);
+
+    this.setNetworkStyles();
   }
   
   render() {
@@ -131,11 +154,17 @@ class App extends Component {
       togglePanel: this.toggleGenerateNetworkPanel,
       networkData: this.state.networkData,
       stateIndex: this.state.stateIndex,
+      networkStyles: NetworkStyles.NETWORK_STYLES,
     }
     
     const viewportProps = {
       networkData: this.state.networkData,
-      stateIndex: this.state.stateIndex
+      stateIndex: this.state.stateIndex,
+      selectedNodes: this.state.selectedNodes,
+      setSelectedNodes: this.setSelectedNodes,
+      setInfoBoxData: this.setInfoBoxData,
+      infoBoxData: this.state.infoBoxData,
+      networkStyles: NetworkStyles.NETWORK_STYLES,
     }
     
     return (

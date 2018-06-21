@@ -45,6 +45,13 @@ class Server {
         callback(response)
       })
   }
+
+  static getStyleData(callback) {
+    axios.get("http://localhost:1234/v1/styles/default.json") 
+      .then((response) => {
+        callback(response);
+      })
+  }
 }
 
 export default Server;
