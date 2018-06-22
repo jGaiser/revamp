@@ -5,7 +5,7 @@ import '../css/App.css';
 import '../css/Viewport.css';
 import '../css/GenerateNetworkPanel.css';
 import '../css/CyButton.css';
-import '../css/ControlPanel.css'
+import '../css/ControlPanel.css';
 import CyButton             from './CyButton'
 import InfoBox              from './InfoBox';
 import Sidebar              from './Sidebar';

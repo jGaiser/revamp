@@ -1,4 +1,12 @@
+#GenerateNetworkPanel {
+    transition: opacity 0.5s;
+    opacity: 1;
+}
 
+#GenerateNetworkPanel.hidden {
+    opacity: 0;
+    pointer-events:none;
+}
 
 .exitButton span:hover {
     background: white;

@@ -1,3 +1,10 @@
+#Sidebar .cyButton {
+    margin-bottom: 5px;
+    display: block;
+    margin: 5px auto;
+    padding: 8px 12px;
+}
+
 .cpSectionHeader:hover {
     cursor: pointer;
 }
@@ -19,3 +26,31 @@
     background-color: gray;
     color: rgb(60, 60, 60);
 }
+
+#Sidebar .cpSectionHeader {
+    border-bottom: 1px solid white;
+    background: rgb(30,30,30);
+    color: white;
+    padding: 10px;
+}
+
+.cpSectionHeader span{
+	margin-right: 5px;
+	transform       : rotate(90deg);
+  	display         : inline-block;
+  	transform-origin: 50% 55%;
+  	transition      : ease-in-out .25s;
+    position: relative;
+    bottom: 2px;
+}
+
+.cpSectionHeader span.rotated{
+    transform: rotate(180deg);
+    bottom: 4px;
+}
+
+.cpItemsContainer {
+	border-bottom: 1px solid white;
+}
+
+

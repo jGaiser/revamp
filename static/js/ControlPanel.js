@@ -1,5 +1,8 @@
 import React from 'react';
 
+import {SlideDown} from 'react-slidedown'
+import 'react-slidedown/lib/slidedown.css'
+
 const dataFilters = ['Crizantonib', 'Iressa', 'Gleevec', 'Geldanamycin', 'Lung Cancer Cells vs Normal Tissue'];
 const layouts = {"genemania-force-directed": "Genemania Force Directed", 
                  "attribute-circle": "Attribute Circle", 
@@ -23,18 +26,20 @@ class ControlPanelSection extends React.Component {
 
   render() {
     const childComponents = React.Children.map(this.props.children, (child) => {
-      return React.cloneElement(child, {show: this.state.show});
+      return React.cloneElement(child);
     });
+
     return(
       <div className='cpSection'>
-        <div className='cpSectionHeader' onClick={()=>this.setState({show: !this.state.show}) } >
-          <span>▲</span>
+        <div className="cpSectionHeader" onClick={()=>this.setState({show: !this.state.show}) } >
+          <span className={this.state.show ? "rotated" : ""}>▲</span>
           { this.props.sectionName }
         </div>
 
-        <div className='cpItemsContainer'>
-          { childComponents }
-        </div>
+        <SlideDown className={'my-dropdown-slidedown'}>
+          {this.state.show ? <div className='cpItemsContainer'>{ childComponents }</div> : null}
+        </SlideDown>
+
       </div>
     )
   }
@@ -42,8 +47,7 @@ class ControlPanelSection extends React.Component {
 
 class SimpleListSection extends React.Component {
   render() {
-    if(this.props.show == false) return null;
-    
+
     var items = this.props.items.map((item) => {
       return <div key={item} className='controlBox' onClick={this.props.clickHandler} >{item}</div>
     })
@@ -58,7 +62,7 @@ class SimpleListSection extends React.Component {
 
 class LayoutListSection extends React.Component {
   render() {
-    if(this.props.show == false) return null;
+
     var items = this.props.items.map((item) => {
       return <div key={item} className='controlBox' onClick={() => this.props.clickHandler(item)} >{layouts[item]}</div>
     })
@@ -130,7 +134,6 @@ class NodeListSection extends React.Component {
 
 class EdgeListSection extends React.Component {
   render(){
-    if(this.props.show == false) return null;
     var i = 0;
 
     var items = this.props.networkStyles.map((item) => {
@@ -155,13 +158,13 @@ class ControlPanel extends React.Component {
     
     return(
       <div className='controlPanelContainer'>
-      <ControlPanelSection sectionName="Node List">
-        <NodeListSection {...this.props}/>
-      </ControlPanelSection>
-      
-      <ControlPanelSection sectionName="Edge Properties">
-        <EdgeListSection networkStyles={this.props.networkStyles} />
-      </ControlPanelSection>
+        <ControlPanelSection sectionName="Node List">
+          <NodeListSection {...this.props}/>
+        </ControlPanelSection>
+        
+        <ControlPanelSection sectionName="Edge Properties">
+          <EdgeListSection networkStyles={this.props.networkStyles} />
+        </ControlPanelSection>
       
         <ControlPanelSection sectionName="Network Layouts">
           <LayoutListSection items={Object.keys(layouts)} clickHandler={this.props.updateLayout}/>

@@ -270,8 +270,6 @@ class GenerateNetworkPanel extends React.Component {
     }
 
     render() {
-        if (!this.props.show) return null;
-
         const elemStyle = {
             marginTop: this.state.marginTop
         }
@@ -279,6 +277,7 @@ class GenerateNetworkPanel extends React.Component {
         return (
             <div
                 id='GenerateNetworkPanel'
+                className={this.props.show ? "" : "hidden"}
                 ref={(panel) => {this.panel = panel; }}
                 style={elemStyle}
             >

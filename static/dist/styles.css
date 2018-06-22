@@ -84,6 +84,14 @@ button:hover {
     border-left: 2px solid white;
     border-top: 2px solid white;
     border-radius: 10px 0px 0px 0px;
+}#GenerateNetworkPanel {
+    transition: opacity 0.5s;
+    opacity: 1;
+}
+
+#GenerateNetworkPanel.hidden {
+    opacity: 0;
+    pointer-events:none;
 }
 
 .exitButton span:hover {
@@ -199,7 +207,14 @@ button:hover {
 
 .cyButton:hover{
 	cursor: pointer;
-}.cpSectionHeader:hover {
+}#Sidebar .cyButton {
+    margin-bottom: 5px;
+    display: block;
+    margin: 5px auto;
+    padding: 8px 12px;
+}
+
+.cpSectionHeader:hover {
     cursor: pointer;
 }
 
@@ -219,4 +234,46 @@ button:hover {
     cursor: pointer;
     background-color: gray;
     color: rgb(60, 60, 60);
+}
+
+#Sidebar .cpSectionHeader {
+    border-bottom: 1px solid white;
+    background: rgb(30,30,30);
+    color: white;
+    padding: 10px;
+}
+
+.cpSectionHeader span{
+	margin-right: 5px;
+	transform       : rotate(90deg);
+  	display         : inline-block;
+  	transform-origin: 50% 55%;
+  	transition      : ease-in-out .25s;
+    position: relative;
+    bottom: 2px;
+}
+
+.cpSectionHeader span.rotated{
+    transform: rotate(180deg);
+    bottom: 4px;
+}
+
+.cpItemsContainer {
+	border-bottom: 1px solid white;
+}
+
+
+.react-slidedown {
+    height: 0;
+    transition-property: none;
+    transition-duration: .5s;
+    transition-timing-function: ease-in-out;
+}
+
+.react-slidedown.transitioning {
+    overflow-y: hidden;
+}
+
+.react-slidedown.closed {
+    display: none;
 }
